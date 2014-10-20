@@ -19,11 +19,12 @@ var wall_e = new Robot("Wall-E");
 
 
 // #1
-// function asumes current global context
+// add() function asumes current global context
 console.log(add(0,1));
 
 // #2  
-// method.call(this, arg1, arg2, ...) seen in wubclasses that inherit properties from a superclass
+// assigning the voltron context to the add() function and providing arguments for the add() function
+// method.call(this, arg1, arg2, ...) used in subclass constructor that inherits properties from a superclass
 console.log(add.call(voltron, 2, 3)  );
 
 // #3
@@ -35,19 +36,23 @@ var nums = [40, 50];
 console.log(add.apply(optimus, nums));
 
 // #4
-// bind() defines the context of the argument to the add function
+// Instructions: 'bind the function add to a new function named calculate with the context of the object bender (using bind())
+// invoke the calculate passing in 2 arguments, "drinking " and "beer"'
+
+// bind() defines the context of the argument bender to the add() function 
+//  which is then assigned to the new calculate 
 // not sure what the purpose of calculate is in this example...
 // when calculate is invoked, it... ???
 // why not just use add(), why calculate?
 
-var calculate = add.bind(bender);
+var calculate = add.bind(bender);             // but, calculate is not a function
 console.log(calculate("drinking", "beer"));   // ouput is "Bender Rodriguez can count to drinkingbeer"
 
-
+// calculate is a function here, but output is not desirable
 // function calculate(arg1, arg2) {
 //   this.arg1 = arg1;
 //   this.arg2 = arg2;
 //   return this.arg1 + " " + this.arg2;
 // }
-// console.log(calculate("drinking", "beer"));
+// console.log(calculate("drinking", "beer"));                  // test 
 // console.log(add.bind(bender,calculate("drinking", "beer"))); // output is "[function]"
