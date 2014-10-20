@@ -39,20 +39,19 @@ console.log(add.apply(optimus, nums));
 // Instructions: 'bind the function add to a new function named calculate with the context of the object bender (using bind())
 // invoke the calculate passing in 2 arguments, "drinking " and "beer"'
 
-// bind() defines the context of the argument bender to the add() function 
-//  which is then assigned to the new calculate 
-// not sure what the purpose of calculate is in this example...
-// when calculate is invoked, it... ???
-// why not just use add(), why calculate?
+// bind()'s first argument defines the context as bender, and returns a new function
+// additional arguments are supplied to the function add()
+// new function must be invoked!  additional/partial arguments can be supplied when function is invoked
 
-var calculate = add.bind(bender);             // but, calculate is not a function
-console.log(calculate("drinking", "beer"));   // ouput is "Bender Rodriguez can count to drinkingbeer"
+var calculate = add.bind(bender, "'drinking ", "beer'");  // bind returns a new function!
+                                                          // first parameter is context this === bender
+                                                          // second and third arguments are for add(op1, op2)
+console.log(calculate());                                 // new function must be invoked
+                                                          // ouput is "Bender Rodriguez can count to 'drinking beer'"
 
-// calculate is a function here, but output is not desirable
-// function calculate(arg1, arg2) {
-//   this.arg1 = arg1;
-//   this.arg2 = arg2;
-//   return this.arg1 + " " + this.arg2;
-// }
-// console.log(calculate("drinking", "beer"));                  // test 
-// console.log(add.bind(bender,calculate("drinking", "beer"))); // output is "[function]"
+// Currying Partial Function
+var calculate2 = add.bind(bender, "'drinking ");          // only first add() argument specified
+console.log(calculate2("wine'"));                         // second add() argument, op2, specified later, when invoked
+
+var calculate3 = add.bind(bender);                        // no add() arguments supplied
+console.log(calculate3("'drinking ", "chai'" ));          // all add() arguments supplied when invoked
